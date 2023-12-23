@@ -3,7 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using WebSales.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<WebSalesContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("WebSalesContext") ?? throw new InvalidOperationException("Connection string 'WebSalesContext' not found.")));
+    options.UseMySql(builder.Configuration.GetConnectionString(
+        "Server=localhost;initial catalog=saleswebmvcappdb;uid=root;Pwd=1234567"),
+        Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.34-mysql")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
