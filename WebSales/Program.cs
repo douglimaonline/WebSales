@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebSales.Data;
+using WebSales.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<WebSalesContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("WebSalesContext"),
@@ -8,6 +9,7 @@ builder.Services.AddDbContext<WebSalesContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<SellerService>();
 
 var app = builder.Build();
 
