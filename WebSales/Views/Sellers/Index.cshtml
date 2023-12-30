@@ -9,45 +9,48 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Nome
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Department
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var sellers in Model.Sellers)
-        {
+<div class="row">
+    <table class="table table-striped table-hover">
+        <thead>
             <tr>
-                <td>
-                    @sellers.Name
-                </td>
-                <td>
-                    @sellers.Email
-                </td>
-                <td>
-                    @foreach (var item in @Model.Departments.Where(d => d.Id == sellers.Department.Id))
-                    {
-                        @item.Name
-                    }
-                </td>
-                <td>
-                <a asp-action="Edit" asp-route-id="@sellers.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@sellers.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@sellers.Id">Delete</a>
-                </td>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Department
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var sellers in Model.Sellers)
+            {
+                <tr>
+                    <td>
+                        @sellers.Name
+                    </td>
+                    <td>
+                        @sellers.Email
+                    </td>
+                    <td>
+                        @foreach (var item in @Model.Departments.Where(d => d.Id == sellers.Department.Id))
+                        {
+                            @item.Name
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@sellers.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@sellers.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@sellers.Id">Delete</a>
+                    </td>
+                </tr>
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+
 
