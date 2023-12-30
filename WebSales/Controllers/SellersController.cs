@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebSales.Data;
+using WebSales.Models;
 using WebSales.Models.ViewModels;
 using WebSales.Services;
 
@@ -25,6 +26,19 @@ namespace WebSales.Controllers
                 Departments = listDepartments
             };
             return View(viewWebSellers);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Seller seller)
+        {
+            _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

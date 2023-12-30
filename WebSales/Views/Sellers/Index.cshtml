@@ -36,7 +36,7 @@
                         @sellers.Email
                     </td>
                     <td>
-                        @foreach (var item in @Model.Departments.Where(d => d.Id == sellers.Department.Id))
+                        @foreach (var item in @Model.Departments.Where(d => d.Id == sellers.Department?.Id))
                         {
                             @item.Name
                         }
