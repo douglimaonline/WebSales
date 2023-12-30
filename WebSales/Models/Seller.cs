@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public double BaseSalary { get; set; }
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
         ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
         public Seller()
