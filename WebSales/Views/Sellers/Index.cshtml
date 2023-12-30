@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebSales.Models.Seller>
+﻿@using WebSales.Models.ViewModels
+@model WebViewSellers
 @{
     ViewData["Title"] = "Index";
 }
@@ -12,25 +13,41 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Nome
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Department
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var sellers in Model.Sellers)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @sellers.Name
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @sellers.Email
+                </td>
+                <td>
+                    @foreach (var item in @Model.Departments.Where(d => d.Id == sellers.Department.Id))
+                    {
+                        @item.Name
+                    }
+                </td>
+                <td>
+                <a asp-action="Edit" asp-route-id="@sellers.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@sellers.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@sellers.Id">Delete</a>
                 </td>
             </tr>
         }
+
     </tbody>
 </table>
 
