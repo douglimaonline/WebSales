@@ -10,11 +10,13 @@ namespace WebSales.Controllers
     {
         private readonly SellerService _sellerService;
         private readonly WebSalesContext _departments;
+        private readonly DepartmentService _departmentService;
 
-        public SellersController (SellerService sellerService, WebSalesContext departments)
+        public SellersController (SellerService sellerService, WebSalesContext departments, DepartmentService departmentService)
         {
             _sellerService = sellerService;
             _departments = departments;
+            _departmentService = departmentService;
         }
         public IActionResult Index()
         {
@@ -30,7 +32,9 @@ namespace WebSales.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departments = _departmentService.FindAll();
+            var viewModel = new CreateViewSellers { Departments = departments };
+            return View(viewModel);
         }
 
         [HttpPost]
