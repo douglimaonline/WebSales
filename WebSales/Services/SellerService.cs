@@ -22,5 +22,11 @@ namespace WebSales.Services
             _context.Add(seller);
             _context.SaveChanges();
         }
+
+        public void Delete(Seller seller)
+        {
+            _context.Remove(seller);
+            _context.SaveChanges();
+        }
     }
 }

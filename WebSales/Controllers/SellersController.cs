@@ -12,7 +12,7 @@ namespace WebSales.Controllers
         private readonly WebSalesContext _departments;
         private readonly DepartmentService _departmentService;
 
-        public SellersController (SellerService sellerService, WebSalesContext departments, DepartmentService departmentService)
+        public SellersController(SellerService sellerService, WebSalesContext departments, DepartmentService departmentService)
         {
             _sellerService = sellerService;
             _departments = departments;
@@ -42,6 +42,20 @@ namespace WebSales.Controllers
         public IActionResult Create(Seller seller)
         {
             _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            var seller = _departments.Seller.FirstOrDefault(s => s.Id == id);
+            return View(seller);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Seller seller)
+        {
+            _sellerService.Delete(seller);
             return RedirectToAction(nameof(Index));
         }
     }
