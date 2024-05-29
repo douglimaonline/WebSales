@@ -9,19 +9,19 @@ namespace WebSales.Controllers
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
-        private readonly WebSalesContext _departments;
+        private readonly WebSalesContext _context;
         private readonly DepartmentService _departmentService;
 
-        public SellersController(SellerService sellerService, WebSalesContext departments, DepartmentService departmentService)
+        public SellersController(SellerService sellerService, WebSalesContext context, DepartmentService departmentService)
         {
+            _context = context;
             _sellerService = sellerService;
-            _departments = departments;
             _departmentService = departmentService;
         }
         public IActionResult Index()
         {
             var listSellers = _sellerService.FindAll();
-            var listDepartments = _departments.Department.ToList();
+            var listDepartments = _context.Department.ToList();
             var viewWebSellers = new WebViewSellers
             {
                 Sellers = listSellers,
@@ -47,7 +47,7 @@ namespace WebSales.Controllers
 
         public IActionResult Delete(int? id)
         {
-            var seller = _departments.Seller.FirstOrDefault(s => s.Id == id);
+            var seller = _context.Seller.FirstOrDefault(s => s.Id == id);
             return View(seller);
         }
 
