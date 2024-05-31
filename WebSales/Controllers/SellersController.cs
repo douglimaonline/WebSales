@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebSales.Data;
 using WebSales.Models;
 using WebSales.Models.ViewModels;
@@ -35,6 +36,17 @@ namespace WebSales.Controllers
             var departments = _departmentService.FindAll();
             var viewModel = new CreateViewSellers { Departments = departments };
             return View(viewModel);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var seller = _context.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
+            return View(seller);
+            
         }
 
         [HttpPost]
