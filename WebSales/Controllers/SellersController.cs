@@ -56,7 +56,12 @@ namespace WebSales.Controllers
                 return NotFound();
             }
             var seller = _context.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
-            return View(seller);
+            var editViewModel = new EditViewSeller
+            {
+                Seller = seller,
+                Departments = _context.Department.ToList()
+            };
+            return View(editViewModel);
         }
 
         [HttpPost]
