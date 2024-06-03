@@ -49,6 +49,16 @@ namespace WebSales.Controllers
             
         }
 
+        public IActionResult Edit (int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var seller = _context.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
+            return View(seller);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
@@ -68,6 +78,15 @@ namespace WebSales.Controllers
         public IActionResult Delete(Seller seller)
         {
             _sellerService.Delete(seller);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult Edit (Seller seller)
+        {
+            _sellerService.Update(seller);
             return RedirectToAction(nameof(Index));
         }
     }

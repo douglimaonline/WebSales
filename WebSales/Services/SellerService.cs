@@ -28,5 +28,10 @@ namespace WebSales.Services
             _context.Remove(seller);
             _context.SaveChanges();
         }
+        public void Update(Seller seller)
+        {
+            _context.Update(seller);
+            _context.SaveChanges();
+        }
     }
 }
