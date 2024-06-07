@@ -1,4 +1,5 @@
-﻿using WebSales.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebSales.Data;
 using WebSales.Models;
 
 namespace WebSales.Services
@@ -12,26 +13,31 @@ namespace WebSales.Services
             _context = context;
         }
 
-        public List<Seller> FindAll()
+        public async Task<List<Seller>> FindAllAsync()
         {
-            return _context.Seller.ToList();
+            return await _context.Seller.ToListAsync();
         }
 
-        public void Insert(Seller seller)
+        public async Task<Seller> FindByIdAsync(int? id)
+        {
+            return await _context.Seller.Include(s => s.Department).FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task InsertAsync(Seller seller)
         {
             _context.Add(seller);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Seller seller)
+        public async Task RemoveAsync(Seller seller)
         {
             _context.Remove(seller);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Update(Seller seller)
+        public async Task UpdateAsync(Seller seller)
         {
             _context.Update(seller);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

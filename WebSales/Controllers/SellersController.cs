@@ -19,10 +19,10 @@ namespace WebSales.Controllers
             _sellerService = sellerService;
             _departmentService = departmentService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var listSellers = _sellerService.FindAll();
-            var listDepartments = _context.Department.ToList();
+            var listSellers = await _sellerService.FindAllAsync();
+            var listDepartments = await _departmentService.FindAllAsync();
             var viewWebSellers = new WebViewSellers
             {
                 Sellers = listSellers,
@@ -31,31 +31,31 @@ namespace WebSales.Controllers
             return View(viewWebSellers);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
             var viewModel = new CreateViewSellers { Departments = departments };
             return View(viewModel);
         }
 
-        public IActionResult Details(int? id)
-        {
+        public async Task<IActionResult> Details(int? id)
+        {   
             if (id == null)
             {
                 return NotFound();
             }
-            var seller = _context.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
+            var seller = await _sellerService.FindByIdAsync(id);
             return View(seller);
             
         }
 
-        public IActionResult Edit (int? id)
+        public async Task<IActionResult> Edit (int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var seller = _context.Seller.Include(s => s.Department).FirstOrDefault(s => s.Id == id);
+            var seller = await _sellerService.FindByIdAsync(id);
             var editViewModel = new EditViewSeller
             {
                 Seller = seller,
@@ -66,32 +66,32 @@ namespace WebSales.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
-            _sellerService.Insert(seller);
+            await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            var seller = _context.Seller.FirstOrDefault(s => s.Id == id);
+            var seller = await _sellerService.FindByIdAsync(id);
             return View(seller);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Seller seller)
+        public async Task<IActionResult> Delete(Seller seller)
         {
-            _sellerService.Delete(seller);
+            await _sellerService.RemoveAsync(seller);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult Edit (Seller seller)
+        public async Task<IActionResult> Edit (Seller seller)
         {
-            _sellerService.Update(seller);
+            await _sellerService.UpdateAsync(seller);
             return RedirectToAction(nameof(Index));
         }
     }
