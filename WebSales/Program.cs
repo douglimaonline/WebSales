@@ -16,12 +16,13 @@ builder.Services.AddScoped<DepartmentService>();
 var app = builder.Build();
 
 // Configure Culture Info
+var ptBR = new CultureInfo("pt-BR");
 var enUS = new CultureInfo("en-US");
 var localizationOptions = new RequestLocalizationOptions
 {
-    DefaultRequestCulture = new RequestCulture(enUS),
-    SupportedCultures = new List<CultureInfo> { enUS },
-    SupportedUICultures = new List<CultureInfo> { enUS }
+    DefaultRequestCulture = new RequestCulture(ptBR),
+    SupportedCultures = new List<CultureInfo> { ptBR, enUS },
+    SupportedUICultures = new List<CultureInfo> { ptBR, enUS }
 };
 
 app.UseRequestLocalization(localizationOptions);
