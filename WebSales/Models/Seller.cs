@@ -5,9 +5,14 @@ namespace WebSales.Models
     public class Seller
     {
         public int Id { get; set; }
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
+        [Required]
+        [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [Required]
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public double BaseSalary { get; set; }

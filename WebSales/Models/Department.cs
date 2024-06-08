@@ -1,8 +1,11 @@
-﻿namespace WebSales.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebSales.Models
 {
     public class Department
     {
         public int Id { get; set; }
+        [Required]
         public string? Name { get; set; }
         ICollection<Seller> Sellers { get; set; } = new List<Seller>();
 
