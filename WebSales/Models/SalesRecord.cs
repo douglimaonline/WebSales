@@ -6,7 +6,7 @@ namespace WebSales.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public double Amout { get; set; }
+        public double Amount { get; set; }
         public SalesRecordEnums Status { get; set; }
         public Seller Seller { get; set; }
 
@@ -18,7 +18,7 @@ namespace WebSales.Models
         {
             Id = id;
             Date = date;
-            Amout = amout;
+            Amount = amout;
             Status = status;
             Seller = seller;
         }

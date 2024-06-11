@@ -43,7 +43,7 @@ namespace WebSales.Models
         }
         public double TotalSales (DateTime initialDate, DateTime endDate)
         {
-            return Sales.Where(s => s.Date >= initialDate && s.Date <= endDate).Sum(s => s.Amout);
+            return Sales.Where(s => s.Date >= initialDate && s.Date <= endDate).Sum(s => s.Amount);
         }
     }
 }
