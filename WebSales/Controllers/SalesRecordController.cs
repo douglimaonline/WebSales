@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebSales.Models;
 using WebSales.Services;
 
 namespace WebSales.Controllers
@@ -26,6 +27,12 @@ namespace WebSales.Controllers
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
             var result = await _salesRecordService.FindByDateAsync(minDate, maxDate);
             return View(result);
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            var viewModel = new SalesRecord();
+            return View(viewModel);
         }
     }
 }

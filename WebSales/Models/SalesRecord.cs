@@ -6,8 +6,10 @@ namespace WebSales.Models
     public class SalesRecord
     {
         public int Id { get; set; }
+        [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+        [Required]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public double Amount { get; set; }
         public SalesRecordEnums Status { get; set; }
