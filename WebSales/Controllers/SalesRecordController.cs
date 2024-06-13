@@ -31,6 +31,7 @@ namespace WebSales.Controllers
 
         public async Task<IActionResult> Create()
         {
+            ViewData["initialDate"] = DateTime.Now.ToString("yyyy-MM-dd");
             var viewModel = new SalesRecord();
             return View(viewModel);
         }
