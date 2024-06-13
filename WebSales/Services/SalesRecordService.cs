@@ -29,7 +29,7 @@ namespace WebSales.Services
             return await result
                 .Include(s => s.Seller)
                 .Include(s => s.Seller.Department)
-                .OrderByDescending(x => x.Date)
+                .OrderBy(x => x.Date)
                 .ToListAsync();
         }
     }
